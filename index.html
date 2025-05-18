@@ -349,13 +349,85 @@
         <div class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-full inline-block">Certified</div>
         <div class="mt-4">
           <button onclick="showCertificate('blue-team-level-1.jpg', 'Blue Team Level 1 Certificate')" class="text-purple-400 hover:text-purple-300 transition-colors">
-            <i class="fas fa-eye mr-1"></i>View Certificate
+  <i class="fas fa-eye mr-1"></i>View Certificate
           </button>
         </div>
       </div>
     </div>
   </section>
-
+  
+  <!-- Certificate Modal -->
+  <div id="certificate-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+    <div class="relative bg-gray-900 rounded-xl max-w-5xl w-full max-h-screen overflow-auto p-2">
+      <button id="close-modal" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-400 transition-colors">
+        <i class="fas fa-times"></i>
+      </button>
+      <h3 id="certificate-title" class="text-center text-2xl font-bold text-white my-4"></h3>
+      <div class="flex justify-center">
+        <img id="certificate-image" src="" alt="Certificate" class="max-w-full max-h-[80vh] object-contain" />
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Add a small delay to ensure DOM is fully loaded
+    setTimeout(function() {
+      // Define the function to show certificates
+      function showCertificate(imageSrc, title) {
+        const modal = document.getElementById('certificate-modal');
+        const image = document.getElementById('certificate-image');
+        const titleElement = document.getElementById('certificate-title');
+        
+        if (modal && image && titleElement) {
+          image.src = imageSrc;
+          titleElement.textContent = title;
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        } else {
+          console.error('Modal elements not found');
+          // Fallback - open image in new tab if modal doesn't work
+          window.open(imageSrc, '_blank');
+        }
+      }
+      
+      // Make it globally available
+      window.showCertificate = showCertificate;
+      
+      // Set up close button if it exists
+      const closeButton = document.getElementById('close-modal');
+      if (closeButton) {
+        closeButton.addEventListener('click', function() {
+          const modal = document.getElementById('certificate-modal');
+          if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+      
+      // Set up click outside to close if modal exists
+      const modal = document.getElementById('certificate-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+      
+      // Set up ESC key to close
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const modal = document.getElementById('certificate-modal');
+          if (modal && !modal.classList.contains('hidden')) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          }
+        }
+      });
+    }, 500); // 500ms delay to ensure DOM is loaded
+  </script>
 
   <!-- Contact Section -->
   <section id="contact" class="py-20 px-8 max-w-4xl mx-auto">
