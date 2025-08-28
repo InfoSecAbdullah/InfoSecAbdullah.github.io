@@ -407,6 +407,16 @@
     <h2 class="text-4xl font-bold mb-12 text-center">
       <i class="fas fa-certificate text-blue-400 mr-3"></i>Certifications
     </h2>
+  <!-- Certifications Section -->
+  <section class="py-20 px-8 max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-center">
+      <i class="fas fa-certificate text-blue-400 mr-3"></i>Certifications
+    </h2>
+  <!-- Certifications Section -->
+  <section class="py-20 px-8 max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-center">
+      <i class="fas fa-certificate text-blue-400 mr-3"></i>Certifications
+    </h2>
     <div class="grid md:grid-cols-3 gap-6">
       <!-- Security+ Certification -->
       <div class="cyber-border p-8 text-center card-hover">
@@ -477,30 +487,31 @@
   </div>
   
   <script>
-    // Add a small delay to ensure DOM is fully loaded
-    setTimeout(function() {
-      // Define the function to show certificates
-      function showCertificate(imageSrc, title) {
-        const modal = document.getElementById('certificate-modal');
-        const image = document.getElementById('certificate-image');
-        const titleElement = document.getElementById('certificate-title');
-        
-        if (modal && image && titleElement) {
-          image.src = imageSrc;
-          titleElement.textContent = title;
-          modal.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
-        } else {
-          console.error('Modal elements not found');
-          // Fallback - open image in new tab if modal doesn't work
-          window.open(imageSrc, '_blank');
-        }
+    // Define the function to show certificates
+    function showCertificate(imageSrc, title) {
+      const modal = document.getElementById('certificate-modal');
+      const image = document.getElementById('certificate-image');
+      const titleElement = document.getElementById('certificate-title');
+      
+      if (modal && image && titleElement) {
+        image.src = imageSrc;
+        titleElement.textContent = title;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        console.log('Certificate modal opened for:', title);
+      } else {
+        console.error('Modal elements not found');
+        // Fallback - open image in new tab if modal doesn't work
+        window.open(imageSrc, '_blank');
       }
-      
-      // Make it globally available
-      window.showCertificate = showCertificate;
-      
-      // Set up close button if it exists
+    }
+    
+    // Make it globally available immediately
+    window.showCertificate = showCertificate;
+    
+    // Set up modal functionality when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up close button
       const closeButton = document.getElementById('close-modal');
       if (closeButton) {
         closeButton.addEventListener('click', function() {
@@ -512,7 +523,7 @@
         });
       }
       
-      // Set up click outside to close if modal exists
+      // Set up click outside to close
       const modal = document.getElementById('certificate-modal');
       if (modal) {
         modal.addEventListener('click', function(e) {
@@ -532,9 +543,8 @@
             document.body.style.overflow = 'auto';
           }
         }
-      }
       });
-    }, 500); // 500ms delay to ensure DOM is loaded
+    });
   </script>
 
   <!-- Contact Section -->
@@ -596,6 +606,7 @@
 </body>
 
 </html>
+
 
 
 
